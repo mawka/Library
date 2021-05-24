@@ -12,31 +12,34 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
     private BookServiceImpl bookServiceImpl;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Book> getAllBooks() {
         return bookServiceImpl.findAll();
     }
 
-    @GetMapping("/book-create")
-    public String createBookForm(Book book){
-        return "book-create";
+    @GetMapping("/{id}")
+    public Book getBook() {
+        return bookServiceImpl.getBook();
     }
 
     @PostMapping
     public String createBook(Book book) {
         bookServiceImpl.saveBook(book);
-        return "redirect:/all";
     }
 
-    @GetMapping("book-delete/{id}")
+    @PutMapping("/{id}")
+    public Book updateBook(Book book) {
+        return bookServiceImpl.updateBook(Book);
+    }
+
+    @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable("id") String id){
         bookServiceImpl.deleteByID(id);
-        return "redirect:/all";
     }
 }
