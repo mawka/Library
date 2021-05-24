@@ -24,18 +24,13 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getBook() {
-        return bookServiceImpl.getBook();
+    public Book getBook(@PathVariable("id") String id) {
+        return bookServiceImplfindByID(id);
     }
 
     @PostMapping
     public String createBook(Book book) {
         bookServiceImpl.saveBook(book);
-    }
-
-    @PutMapping("/{id}")
-    public Book updateBook(Book book) {
-        return bookServiceImpl.updateBook(Book);
     }
 
     @DeleteMapping("/{id}")
