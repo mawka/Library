@@ -29,7 +29,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBook(Book book) {
+    public Book saveBook(Book book) {
+        bookRepository.save(book);
+        return book;
+    }
+
+    @Override
+    public void updateBook(Book book) {
         bookRepository.save(book);
     }
 

@@ -12,8 +12,8 @@ public interface BookService {
 
     Book findByID(String Id);
 
-    void saveBook(Book book);
+    Book saveBook(Book book);
 
-    Book updateBook(Book book);
+    void updateBook(Book book);
 
 }
