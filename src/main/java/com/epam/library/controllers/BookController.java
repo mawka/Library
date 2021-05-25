@@ -1,5 +1,6 @@
 package com.epam.library.controllers;
 
+import com.epam.library.dto.BookDto;
 import com.epam.library.model.Book;
 import com.epam.library.service.Implementation.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class BookController {
 
     @Autowired
     private BookServiceImpl bookServiceImpl;
+
+    private BookDto convertToDto(Book book) {
+        BookDto bookDto = new BookDto();
+        return bookDto;
+    }
 
     @GetMapping
     public List<Book> getAllBooks() {
@@ -37,4 +43,5 @@ public class BookController {
     public String deleteBook(@PathVariable("id") String id){
         bookServiceImpl.deleteByID(id);
     }
+
 }
