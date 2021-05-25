@@ -1,9 +1,11 @@
 package com.epam.library.controllers;
 
+import static com.epam.library.converter.StudentConverter.convertToDto;
+import static com.epam.library.converter.StudentConverter.convertToEntity;
+import com.epam.library.converter.StudentConverter;
 import com.epam.library.dto.StudentDto;
 import com.epam.library.model.Student;
 import com.epam.library.service.Implementation.StudentServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,22 +25,10 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentServiceImpl;
 
-    private ModelMapper modelMapper = new ModelMapper();
-
-    private StudentDto convertToDto(Student student) {
-        StudentDto studentDto = modelMapper.map(student, StudentDto.class);
-        return studentDto;
-    }
-
-    private Student convertToEntity(StudentDto studentDto) {
-        Student student = modelMapper.map(studentDto, Student.class);
-        return student;
-    }
-
     @GetMapping()
     public List<StudentDto> getAllStudents() {
         List<Student> studentList = studentServiceImpl.findAllStudents();
-        return studentList.stream().map(this::convertToDto).collect(Collectors.toList());
+        return studentList.stream().map(StudentConverter::convertToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
