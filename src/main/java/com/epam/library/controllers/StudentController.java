@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,14 +38,14 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentDto createStudent(StudentDto studentDto) {
+    public StudentDto createStudent(@RequestBody StudentDto studentDto) {
         Student student = convertToEntity(studentDto);
         studentServiceImpl.save(student);
         return convertToDto(student);
     }
 
     @PutMapping
-    public void updateStudent(StudentDto studentDto) {
+    public void updateStudent(@RequestBody StudentDto studentDto) {
         Student student = convertToEntity(studentDto);
         studentServiceImpl.save(student);
     }

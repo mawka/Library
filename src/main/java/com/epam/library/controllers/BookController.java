@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,14 +44,14 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(BookDto bookDto) {
+    public BookDto createBook(@RequestBody BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         Book bookCreated = bookServiceImpl.saveBook(book);
         return convertToDto(bookCreated);
     }
 
     @PutMapping
-    public void updateBook(BookDto bookDto) {
+    public void updateBook(@RequestBody BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         bookServiceImpl.saveBook(book);
     }

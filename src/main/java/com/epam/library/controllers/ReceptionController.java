@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,14 +40,14 @@ public class ReceptionController {
     }
 
     @PostMapping
-    public ReceptionDto createReception(ReceptionDto receptionDto) {
+    public ReceptionDto createReception(@RequestBody ReceptionDto receptionDto) {
         Reception reception = convertToEntity(receptionDto);
         Reception receptionCreated = receptionService.save(reception);
         return convertToDto(receptionCreated);
     }
 
     @PutMapping
-    public void updateReception(ReceptionDto receptionDto) {
+    public void updateReception(@RequestBody ReceptionDto receptionDto) {
         Reception reception = convertToEntity(receptionDto);
         receptionService.save(reception);
     }
