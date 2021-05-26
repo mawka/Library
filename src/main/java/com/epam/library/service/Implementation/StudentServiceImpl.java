@@ -3,6 +3,7 @@ package com.epam.library.service.Implementation;
 import com.epam.library.model.Student;
 import com.epam.library.repository.StudentRepository;
 import com.epam.library.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
+    @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }

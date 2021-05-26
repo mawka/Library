@@ -22,8 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/books")
 public class BookController {
 
-    @Autowired
     private BookServiceImpl bookServiceImpl;
+
+    @Autowired
+    private BookController(BookServiceImpl bookServiceImpl) {
+        this.bookServiceImpl = bookServiceImpl;
+    }
 
     @GetMapping
     public List<BookDto> getAllBooks() {
