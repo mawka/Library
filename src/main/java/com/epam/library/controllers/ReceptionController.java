@@ -1,8 +1,8 @@
 package com.epam.library.controllers;
 
-import static com.epam.library.converter.ReceptionCoverter.convertToDto;
-import static com.epam.library.converter.ReceptionCoverter.convertToEntity;
-import com.epam.library.converter.ReceptionCoverter;
+import static com.epam.library.converter.ReceptionConverter.convertToDto;
+import static com.epam.library.converter.ReceptionConverter.convertToEntity;
+import com.epam.library.converter.ReceptionConverter;
 import com.epam.library.dto.ReceptionDto;
 import com.epam.library.model.Reception;
 import com.epam.library.service.Implementation.ReceptionServiceImpl;
@@ -30,7 +30,7 @@ public class ReceptionController {
     public List<ReceptionDto> getAllReception() {
         List<Reception> reception = receptionService.findAll();
         return reception.stream()
-                .map(ReceptionCoverter::convertToDto)
+                .map(ReceptionConverter::convertToDto)
                 .collect(Collectors.toList());
     }
 
