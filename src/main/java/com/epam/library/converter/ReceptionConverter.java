@@ -5,6 +5,7 @@ import com.epam.library.model.Reception;
 import org.modelmapper.ModelMapper;
 
 public class ReceptionConverter {
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     public static ReceptionDto convertToDto(Reception reception) {
