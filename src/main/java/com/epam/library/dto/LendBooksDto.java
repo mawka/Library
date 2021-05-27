@@ -1,22 +1,28 @@
 package com.epam.library.dto;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class ReceptionDto {
-
+public class LendBooksDto {
+    @Id
     private String id;
 
     @NotNull(message = "book cannot be null!")
     private String idBook;
 
+    @NotNull(message = "student cannot be null!")
+    private String idStudent;
+
     @NotNull(message = "date of operation cannot be null!")
     private LocalDate dateOfOperation;
 
-    @NotNull(message = "quantity cannot be null!")
-    private int quantity;
+    @Future(message = "expired date cannot be in past!")
+    private LocalDate expiredDate;
 
-    public ReceptionDto() {
+    public LendBooksDto() {
     }
 
     public String getId() {
@@ -35,6 +41,14 @@ public class ReceptionDto {
         this.idBook = idBook;
     }
 
+    public String getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(String idStudent) {
+        this.idStudent = idStudent;
+    }
+
     public LocalDate getDateOfOperation() {
         return dateOfOperation;
     }
@@ -43,11 +57,13 @@ public class ReceptionDto {
         this.dateOfOperation = dateOfOperation;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public LocalDate getExpiredDate() {
+        return expiredDate;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setExpiredDate(LocalDate expiredDate) {
+        this.expiredDate = expiredDate;
     }
+
+
 }

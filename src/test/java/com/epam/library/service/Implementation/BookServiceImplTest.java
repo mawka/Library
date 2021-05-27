@@ -14,14 +14,19 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = LibraryApplication.class)
 public class BookServiceImplTest {
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

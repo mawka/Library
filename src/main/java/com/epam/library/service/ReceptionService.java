@@ -1,5 +1,6 @@
 package com.epam.library.service;
 
+import com.epam.library.dto.BookQuantityDto;
 import com.epam.library.model.Reception;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface ReceptionService {
 
     void update(Reception reception);
 
-    List<Reception> findBookQuantity();
+    List<BookQuantityDto> findBookQuantity();
+
+    int findBookQuantityByBookID(String Id);
 }

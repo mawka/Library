@@ -1,12 +1,23 @@
 package com.epam.library.service.Implementation;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+import com.epam.library.dto.BookQuantityDto;
 import com.epam.library.model.Reception;
 import com.epam.library.repository.ReceptionRepository;
 import com.epam.library.service.ReceptionService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +28,12 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     private final ReceptionRepository receptionRepository;
 
+    private final MongoTemplate mongoTemplate;
+
     @Autowired
-    public ReceptionServiceImpl(ReceptionRepository receptionRepository) {
+    public ReceptionServiceImpl(ReceptionRepository receptionRepository, MongoTemplate mongoTemplate) {
         this.receptionRepository = receptionRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -48,22 +62,29 @@ public class ReceptionServiceImpl implements ReceptionService {
     }
 
     @Override
-    public List<Reception> findBookQuantity() {
-//        Aggregation aggregation = Aggregation.newAggregation(
-//                group("idBook").sum("quantity").as("Books")
-//        );
-//
-////        AggregationResults<Yorum> results = .aggregate(aggregation, Yorum.class);
-////
-////        System.out.println(results.getRawResults().get("result"));
-////
-////        return results.getRawResults().get("result").toString();
-//
-//        return (List<Reception>) aggregation;
+    public List<BookQuantityDto> findBookQuantity() {
+        TypedAggregation<BookQuantityDto> agg = newAggregation(BookQuantityDto.class,
+                group("idBook").sum("quantity").as("quantity")
+        );
+        List<BookQuantityDto> listOfBookQuantityDto = mongoTemplate.aggregate(agg, Reception.class, BookQuantityDto.class).getMappedResults();
+        return listOfBookQuantityDto;
+    }
 
+    @Override
+    public int findBookQuantityByBookID(String Id) {
+        GroupOperation groupByBook = group("idBook")
+                .sum("quantity").as("quantity");
+        MatchOperation filterBook = match(new Criteria("idBook").is(new ObjectId(Id)));
+        SortOperation sortByBook = sort(Sort.by(Sort.Direction.DESC, "idBook"));
 
-        return receptionRepository.findBookQuantity();
+        Aggregation aggregation = newAggregation(
+                filterBook, groupByBook, sortByBook);
 
-
+        List<BookQuantityDto> result = mongoTemplate.aggregate(
+                aggregation, Reception.class, BookQuantityDto.class).getMappedResults();
+        if (!(result.isEmpty())) {
+            return result.get(0).getQuantity();
+        } else
+            return 0;
     }
 }
