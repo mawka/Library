@@ -16,7 +16,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.0.Final'
 	compile('org.modelmapper:modelmapper:1.1.0')
 }
 
