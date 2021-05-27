@@ -4,6 +4,9 @@ import com.epam.library.model.Book;
 import com.epam.library.repository.BookRepository;
 import com.epam.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +27,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
-    }
-
-    @Override
     public Book saveBook(Book book) {
         bookRepository.save(book);
         return book;
@@ -37,6 +35,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) {
         bookRepository.save(book);
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return bookRepository.findAll();
     }
 
     @Override

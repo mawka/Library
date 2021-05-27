@@ -16,4 +16,5 @@ public interface ReceptionService {
 
     void update(Reception reception);
 
+    List<Reception> findBookQuantity();
 }

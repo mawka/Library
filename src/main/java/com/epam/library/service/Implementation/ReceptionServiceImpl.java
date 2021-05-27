@@ -43,4 +43,9 @@ public class ReceptionServiceImpl implements ReceptionService {
     public void update(Reception reception) {
         receptionRepository.save(reception);
     }
+
+    @Override
+    public List<Reception> findBookQuantity() {
+        return receptionRepository.findBookQuantity();
+    }
 }

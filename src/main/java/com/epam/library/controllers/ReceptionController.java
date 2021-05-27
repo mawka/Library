@@ -24,8 +24,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/reception")
 public class ReceptionController {
 
-    @Autowired
     private ReceptionServiceImpl receptionService;
+
+    @Autowired
+    private ReceptionController(ReceptionServiceImpl receptionService) {
+        this.receptionService = receptionService;
+    }
+
 
     @GetMapping
     public List<ReceptionDto> getAllReception() {
@@ -34,6 +39,15 @@ public class ReceptionController {
                 .map(ReceptionConverter::convertToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/quantity")
+    public List<ReceptionDto> getAllBookQuantity() {
+        List<Reception> reception = receptionService.findBookQuantity();
+        return reception.stream()
+                .map(ReceptionConverter::convertToDto)
+                .collect(Collectors.toList());
+    }
+
 
     @GetMapping("/{id}")
     public ReceptionDto getReception(@PathVariable("id") String id) {

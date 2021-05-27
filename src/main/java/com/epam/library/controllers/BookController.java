@@ -7,6 +7,9 @@ import com.epam.library.dto.BookDto;
 import com.epam.library.model.Book;
 import com.epam.library.service.Implementation.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +37,10 @@ public class BookController {
     @GetMapping
     public List<BookDto> getAllBooks() {
         List<Book> books = bookServiceImpl.findAll();
-        return books.stream()
+        List<BookDto> booksDto= books.stream()
                 .map(BookConverter::convertToDto)
                 .collect(Collectors.toList());
+        return booksDto;
     }
 
     @GetMapping("/{id}")
