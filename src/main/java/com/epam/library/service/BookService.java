@@ -2,7 +2,6 @@ package com.epam.library.service;
 
 import com.epam.library.model.Book;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,5 +16,7 @@ public interface BookService {
     void updateBook(Book book);
 
     List<Book> findAll();
+
+    Page<Book> findAllBooks();
 
 }

@@ -4,9 +4,10 @@ import com.epam.library.model.Student;
 import com.epam.library.repository.StudentRepository;
 import com.epam.library.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -24,8 +25,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
+    public Page<Student> findAllStudents() {
+        return studentRepository.findAllStudents(PageRequest.of(0,2));
     }
 
     @Override

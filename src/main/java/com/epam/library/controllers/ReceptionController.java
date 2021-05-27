@@ -48,7 +48,6 @@ public class ReceptionController {
                 .collect(Collectors.toList());
     }
 
-
     @GetMapping("/{id}")
     public ReceptionDto getReception(@PathVariable("id") String id) {
         return convertToDto(receptionService.findByID(id));
