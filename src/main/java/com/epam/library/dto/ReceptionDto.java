@@ -1,5 +1,6 @@
 package com.epam.library.dto;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class ReceptionDto {
@@ -8,8 +9,10 @@ public class ReceptionDto {
 
     private String idBook;
 
+    @NotNull(message = "date of operation cannot be null!")
     private LocalDate dateOfOperation;
 
+    @NotNull(message = "quantity cannot be null!")
     private int quantity;
 
     public ReceptionDto() {

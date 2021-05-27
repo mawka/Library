@@ -1,10 +1,7 @@
 package com.epam.library.model;
 
-import com.mongodb.lang.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.annotation.Generated;
 import java.util.Objects;
 
 @Document(collection = "Books")
@@ -13,13 +10,10 @@ public class Book {
     @Id
     private String id;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String author;
 
-    @NonNull
     private int yearOfPublishing;
 
     public Book() {}

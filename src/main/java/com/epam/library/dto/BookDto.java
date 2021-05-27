@@ -1,13 +1,19 @@
 package com.epam.library.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class BookDto {
 
     private String id;
 
+    @NotBlank(message = "name cannot be null!")
     private String name;
 
+    @NotBlank(message = "author cannot be null!")
     private String author;
 
+    @NotNull(message = "year of publishing cannot be null!")
     private int yearOfPublishing;
 
     public BookDto() {

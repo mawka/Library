@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,14 +41,14 @@ public class ReceptionController {
     }
 
     @PostMapping
-    public ReceptionDto createReception(@RequestBody ReceptionDto receptionDto) {
+    public ReceptionDto createReception(@RequestBody @Valid ReceptionDto receptionDto) {
         Reception reception = convertToEntity(receptionDto);
         Reception receptionCreated = receptionService.save(reception);
         return convertToDto(receptionCreated);
     }
 
     @PutMapping
-    public void updateReception(@RequestBody ReceptionDto receptionDto) {
+    public void updateReception(@RequestBody @Valid ReceptionDto receptionDto) {
         Reception reception = convertToEntity(receptionDto);
         receptionService.save(reception);
     }

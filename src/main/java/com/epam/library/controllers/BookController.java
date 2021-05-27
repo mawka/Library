@@ -7,8 +7,6 @@ import com.epam.library.dto.BookDto;
 import com.epam.library.model.Book;
 import com.epam.library.service.Implementation.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,14 +45,14 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(@RequestBody BookDto bookDto) {
+    public BookDto createBook(@RequestBody @Valid BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         Book bookCreated = bookServiceImpl.saveBook(book);
         return convertToDto(bookCreated);
     }
 
     @PutMapping
-    public void updateBook(@RequestBody BookDto bookDto) {
+    public void updateBook(@RequestBody @Valid BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         bookServiceImpl.saveBook(book);
     }

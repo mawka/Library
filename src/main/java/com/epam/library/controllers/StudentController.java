@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,14 +39,14 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentDto createStudent(@RequestBody StudentDto studentDto) {
+    public StudentDto createStudent(@RequestBody @Valid StudentDto studentDto) {
         Student student = convertToEntity(studentDto);
         studentServiceImpl.save(student);
         return convertToDto(student);
     }
 
     @PutMapping
-    public void updateStudent(@RequestBody StudentDto studentDto) {
+    public void updateStudent(@RequestBody @Valid StudentDto studentDto) {
         Student student = convertToEntity(studentDto);
         studentServiceImpl.save(student);
     }

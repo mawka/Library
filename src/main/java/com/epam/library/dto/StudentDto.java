@@ -1,11 +1,15 @@
 package com.epam.library.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class StudentDto {
 
     private String id;
 
+    @NotNull(message = "first name cannot be null!")
     private String firstName;
 
+    @NotNull(message = "last name cannot be null!")
     private String lastName;
 
     public StudentDto() {
