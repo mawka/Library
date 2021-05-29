@@ -9,6 +9,7 @@ import com.epam.library.service.Implementation.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +31,8 @@ public class StudentController {
     private StudentServiceImpl studentServiceImpl;
 
     @GetMapping()
-    public Page<StudentDto> getAllStudents() {
-        Page<Student> studentList = studentServiceImpl.findAllStudents();
+    public Page<StudentDto> getAllStudents(Pageable pageable) {
+        Page<Student> studentList = studentServiceImpl.findAllStudents(pageable);
         List<StudentDto> studentsDto = studentList.stream()
                 .map(StudentConverter::convertToDto)
                 .collect(Collectors.toList());

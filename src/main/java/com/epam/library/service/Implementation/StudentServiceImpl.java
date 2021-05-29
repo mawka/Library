@@ -5,7 +5,7 @@ import com.epam.library.repository.StudentRepository;
 import com.epam.library.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -25,8 +25,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<Student> findAllStudents() {
-        return studentRepository.findAllStudents(PageRequest.of(0,2));
+    public Page<Student> findAllStudents(Pageable pageable) {
+        return studentRepository.findAllStudents(pageable);
     }
 
     @Override

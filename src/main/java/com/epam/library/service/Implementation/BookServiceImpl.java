@@ -5,7 +5,7 @@ import com.epam.library.repository.BookRepository;
 import com.epam.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,8 +42,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<Book> findAllBooks() {
-        return bookRepository.findAllBooks(PageRequest.of(0, 2));
+    public Page<Book> findAllBooks(Pageable pageable) {
+        return bookRepository.findAllBooks(pageable);
     }
 
     @Override
