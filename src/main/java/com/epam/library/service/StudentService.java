@@ -10,7 +10,7 @@ public interface StudentService {
 
     void deleteByID(String id);
 
-    void save(Student student);
+    Student save(Student student);
 
     Page<Student> findAllStudents(Pageable pageable);
 }

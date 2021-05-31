@@ -35,8 +35,8 @@ public class BookController {
     }
 
     @GetMapping
-    public Page<BookDto> getAll(Pageable pegaable) {
-        Page<Book> books = bookServiceImpl.findAllBooks(pegaable);
+    public Page<BookDto> getAll(Pageable pegeable) {
+        Page<Book> books = bookServiceImpl.findAllBooks(pegeable);
         List<BookDto> booksDto = books.stream()
                 .map(BookConverter::convertToDto)
                 .collect(Collectors.toList());

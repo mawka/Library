@@ -16,8 +16,6 @@ public interface BookService {
 
     void updateBook(Book book);
 
-    List<Book> findAll();
-
     Page<Book> findAllBooks(Pageable pageable);
 
 }

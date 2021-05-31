@@ -1,9 +1,12 @@
 package com.epam.library.service.Implementation;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import com.epam.library.model.Reception;
 import com.epam.library.repository.ReceptionRepository;
 import com.epam.library.service.ReceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +49,21 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     @Override
     public List<Reception> findBookQuantity() {
+//        Aggregation aggregation = Aggregation.newAggregation(
+//                group("idBook").sum("quantity").as("Books")
+//        );
+//
+////        AggregationResults<Yorum> results = .aggregate(aggregation, Yorum.class);
+////
+////        System.out.println(results.getRawResults().get("result"));
+////
+////        return results.getRawResults().get("result").toString();
+//
+//        return (List<Reception>) aggregation;
+
+
         return receptionRepository.findBookQuantity();
+
+
     }
 }
