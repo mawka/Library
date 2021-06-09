@@ -7,14 +7,19 @@ import com.epam.library.dto.BookDto;
 import com.epam.library.model.Book;
 import com.epam.library.service.Implementation.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,15 +27,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/books")
 public class BookController {
 
-    @Autowired
     private BookServiceImpl bookServiceImpl;
 
+    @Autowired
+    private BookController(BookServiceImpl bookServiceImpl) {
+        this.bookServiceImpl = bookServiceImpl;
+    }
+
     @GetMapping
-    public List<BookDto> getAllBooks() {
-        List<Book> books = bookServiceImpl.findAll();
-        return books.stream()
+    public Page<BookDto> getAll(Pageable pegeable) {
+        Page<Book> books = bookServiceImpl.findAllBooks(pegeable);
+        List<BookDto> booksDto = books.stream()
                 .map(BookConverter::convertToDto)
                 .collect(Collectors.toList());
+        return new PageImpl<>(booksDto);
     }
 
     @GetMapping("/{id}")
@@ -39,14 +49,14 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(BookDto bookDto) {
+    public BookDto createBook(@RequestBody @Valid BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         Book bookCreated = bookServiceImpl.saveBook(book);
         return convertToDto(bookCreated);
     }
 
     @PutMapping
-    public void updateBook(BookDto bookDto) {
+    public void updateBook(@RequestBody @Valid BookDto bookDto) {
         Book book = convertToEntity(bookDto);
         bookServiceImpl.saveBook(book);
     }
